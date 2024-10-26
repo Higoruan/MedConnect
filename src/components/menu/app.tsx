@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from '../../pages/home/app';
 import DataUser from '../../pages/dataUser/app';
-import MedicoForm from '../../pages/cadastroMedicos/app';
+import MedicoForm from '../../pages/DoctorForm/app';
 
 const Tab = createBottomTabNavigator();
 

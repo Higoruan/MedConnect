@@ -8,3 +8,4 @@ export default function App() {
         <BottomMenu />
     );
 }
+export default App;
