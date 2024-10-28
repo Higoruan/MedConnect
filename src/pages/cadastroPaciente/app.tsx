@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 // Função para validar CPF
 const validateCPF = (cpf: string) => {
@@ -20,6 +21,7 @@ const PatientForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const navigation = useNavigation();
 
   const handleSubmit = () => {
     let validationErrors: { [key: string]: string } = {};
@@ -110,6 +112,9 @@ const PatientForm: React.FC = () => {
 
       {/* Botão Cadastrar */}
       <Button title="Cadastrar" onPress={handleSubmit} color="#28a745" />
+
+      {/* Botão Voltar */}
+      <Button title="Voltar" onPress={() => navigation.goBack()} color="#007bff" />
     </View>
   );
 };
