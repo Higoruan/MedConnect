@@ -1,41 +1,76 @@
-CREATE DATABASE medconnect;
+-- MySQL Workbench Synchronization
+-- Generated: 2024-10-28 11:37
+-- Model: New Model
+-- Version: 1.0
+-- Project: Name of the project
+-- Author: higor.ruan
 
--- Tabela de usuários para armazenar informações gerais de cada pessoa cadastrada
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,          -- Nome do usuário
-    email VARCHAR(255) UNIQUE NOT NULL,   -- E-mail do usuário, deve ser único
-    password VARCHAR(255) NOT NULL,       -- Senha do usuário
-    creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Data de criação do registro
-);
+-- Cria o banco de dados medconnect
+CREATE DATABASE IF NOT EXISTS `medconnect` DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+USE `medconnect`;
 
--- Tabela de médicos, vinculada à tabela de usuários, para armazenar detalhes médicos
-CREATE TABLE doctors (
-    id SERIAL PRIMARY KEY,
-    user_id INT REFERENCES users(id) ON DELETE CASCADE, -- ID do usuário (referência)
-    license_number VARCHAR(20) UNIQUE NOT NULL,         -- Número de licença (CRM)
-    specialty VARCHAR(100) NOT NULL,                    -- Especialidade médica
-    phone VARCHAR(15),                                  -- Telefone do médico
-    creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP        -- Data de criação do registro
-);
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
--- Tabela de pacientes, vinculada à tabela de usuários, para armazenar informações do paciente
-CREATE TABLE patients (
-    id SERIAL PRIMARY KEY,
-    user_id INT REFERENCES users(id) ON DELETE CASCADE, -- ID do usuário (referência)
-    birth_date DATE NOT NULL,                           -- Data de nascimento do paciente
-    phone VARCHAR(15),                                  -- Telefone do paciente
-    address TEXT,                                       -- Endereço do paciente
-    creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP        -- Data de criação do registro
-);
+CREATE TABLE IF NOT EXISTS `appointments` (
+  `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `appointment_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
+  `reason` TEXT NOT NULL,
+  `notes` TEXT NULL DEFAULT NULL,
+  `creation` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  `patients_id` BIGINT(20) UNSIGNED NOT NULL,
+  `doctors_id` BIGINT(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_appointments_patients_idx` (`patients_id` ASC),
+  INDEX `fk_appointments_doctors1_idx` (`doctors_id` ASC),
+  CONSTRAINT `fk_appointments_patients`
+    FOREIGN KEY (`patients_id`)
+    REFERENCES `patients` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_appointments_doctors1`
+    FOREIGN KEY (`doctors_id`)
+    REFERENCES `doctors` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
 
--- Tabela de consultas para registrar as informações de cada consulta médica
-CREATE TABLE appointments (
-    id SERIAL PRIMARY KEY,
-    doctor_id INT REFERENCES doctors(id) ON DELETE CASCADE, -- ID do médico (referência)
-    patient_id INT REFERENCES patients(id) ON DELETE CASCADE, -- ID do paciente (referência)
-    appointment_date TIMESTAMP NOT NULL,                   -- Data e hora da consulta
-    reason TEXT NOT NULL,                                  -- Motivo da consulta
-    notes TEXT,                                            -- Observações adicionais
-    creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP           -- Data de criação do registro
-);
+CREATE TABLE IF NOT EXISTS `doctors` (
+  `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NULL DEFAULT NULL,
+  `license_number` VARCHAR(20) NOT NULL,
+  `specialty` VARCHAR(100) NOT NULL,
+  `phone` VARCHAR(15) NULL DEFAULT NULL,
+  `creation` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `license_number` (`license_number` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `patients` (
+  `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NULL DEFAULT NULL,
+  `birth_date` DATE NOT NULL,
+  `phone` VARCHAR(15) NULL DEFAULT NULL,
+  `address` TEXT NULL DEFAULT NULL,
+  `creation` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `creation` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `email` (`email` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
