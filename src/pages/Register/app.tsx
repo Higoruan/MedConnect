@@ -21,7 +21,7 @@ const RegistrationForm: React.FC = () => {
     }
   };
 
-  if (isRegistered) {
+  if (true) {
     return <BottomMenu />; // Renderiza o menu após o registro
   }
   return (
