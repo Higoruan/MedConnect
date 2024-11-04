@@ -1,67 +1,71 @@
 import React, { useState } from 'react';
-import { Container, Title, InputContainer, Input, ButtonContainer, Button, ButtonText, ErrorText } from './style';
-import { validateForm } from './validation';
-import BottomMenu from '../../components/menu/app';
+import { Container, Form, Input, Button, ErrorMessage } from './style';
+import { validateEmail } from './validation'; // Certifique-se de que você tenha essa função de validação
 
-const RegistrationForm: React.FC = () => {
-  const [fullName, setFullName] = useState('');
+const Register: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [errors, setErrors] = useState<string[]>([]);
-  const [isRegistered, setIsRegistered] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = () => {
-    const newErrors = validateForm(fullName, email, password, confirmPassword);
-    setErrors(newErrors);
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    setError('');
 
-    if (newErrors.length === 0) {
-      console.log('Registro bem-sucedido:', { fullName, email, password });
-      setIsRegistered(true);
+    if (!email || !validateEmail(email)) {
+      setError('Por favor, insira um e-mail válido.');
+      return;
     }
+
+    if (!password) {
+      setError('Por favor, insira sua senha.');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError('As senhas não coincidem.');
+      return;
+    }
+    alert('Registro bem-sucedido!');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
   };
 
-  if (isRegistered) {
-    return <BottomMenu />; // Renderiza o menu após o registro
-  }
   return (
     <Container>
-      <InputContainer>
-        <Title>Registre-se</Title>
+      <h1>Registrar</h1>
+      <Form onSubmit={handleSubmit}>
         <Input
-          placeholder="Nome Completo"
-          value={fullName}
-          onChangeText={setFullName}
-        />
-        <Input
+          type="email"
           placeholder="E-mail"
           value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
+          onChange={(e) => setEmail(e.target.value)}
+          required
         />
         <Input
+          type="password"
           placeholder="Senha"
           value={password}
-          onChangeText={setPassword}
-          secureTextEntry
+          onChange={(e) => setPassword(e.target.value)}
+          required
         />
         <Input
-          placeholder="Confirmação de Senha"
+          type="password"
+          placeholder="Confirme a Senha"
           value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          secureTextEntry
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
         />
-        {errors.map((error, index) => (
-          <ErrorText key={index}>{error}</ErrorText>
-        ))}
-      </InputContainer>
-      <ButtonContainer>
-        <Button onPress={handleSubmit}>
-          <ButtonText>Registrar</ButtonText>
-        </Button>
-      </ButtonContainer>
+        {error && <ErrorMessage>{error}</ErrorMessage>}
+        <Button type="submit">Registrar</Button>
+        <a href="#" onClick={(e) => { e.preventDefault(); setIsLogin(true); }}>
+          Registre-se
+        </a>
+      </Form>
     </Container>
   );
 };
 
-export default RegistrationForm;
+export default Register;

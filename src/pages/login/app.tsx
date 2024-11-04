@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Container, Form, Input, Button, ErrorMessage } from './style';
 import { validateEmail } from './validation';
 import Register from '../Register/app';
+import BottomMenu from '../../components/menu/app';
 
 const App: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const [isRegister, setIsRegister] = useState(false); // Estado para alternar entre Login e Registro
+    const [isRegister, setIsRegister] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
@@ -25,6 +27,7 @@ const App: React.FC = () => {
 
         if (email === 'usuario@example.com' && password === 'senha123') {
             alert('Login bem-sucedido!');
+            setIsLoggedIn(true);
         } else {
             setError('E-mail ou senha incorretos.');
         }
@@ -32,7 +35,9 @@ const App: React.FC = () => {
 
     return (
         <Container>
-            {isRegister ? (
+            {isLoggedIn ? (
+                <BottomMenu />
+            ) : isRegister ? (
                 <Register />
             ) : (
                 <>
@@ -55,7 +60,7 @@ const App: React.FC = () => {
                         {error && <ErrorMessage>{error}</ErrorMessage>}
                         <Button type="submit">Entrar</Button>
                         {/* Link para alternar para o componente Register */}
-                        <a href="#" onClick={() => setIsRegister(true)}>
+                        <a href="#" onClick={(e) => { e.preventDefault(); setIsRegister(true); }}>
                             Registre-se
                         </a>
                     </Form>

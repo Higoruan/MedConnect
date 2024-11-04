@@ -1,60 +1,47 @@
-import styled from 'styled-components/native';
+import styled from 'styled-components';
 
-export const Container = styled.View`
-  flex: 1;
-  background-color: #f8f9fa;
-  padding: 20px;
+export const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f4f4;
+    height: 100vh; /* Adiciona altura de 100% da viewport */
+    width: 100vw;  /* Adiciona largura de 100% da viewport */
 `;
 
-export const Title = styled.Text`
-  font-size: 28px;
-  font-weight: bold;
-  color: #333;
-  text-align: center;
-  margin-top: 40px;
-  margin-bottom: 20px;
+export const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
 
-export const InputContainer = styled.View`
-  flex: 1;
-  justify-content: center;
+export const Input = styled.input`
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 `;
 
-export const Input = styled.TextInput`
-  height: 50px;
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 0 15px;
-  margin-bottom: 15px;
-  font-size: 16px;
-  color: #333;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+export const Button = styled.button`
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    
+    &:hover {
+        background-color: #0056b3;
+    }
 `;
 
-export const ButtonContainer = styled.View`
-  position: absolute;
-  bottom: 30px;
-  left: 20px;
-  right: 20px;
-`;
-
-export const Button = styled.TouchableOpacity`
-  background-color: #007bff;
-  padding: 15px;
-  border-radius: 8px;
-  align-items: center;
-  box-shadow: 0px 4px 6px rgba(0, 123, 255, 0.3);
-`;
-
-export const ButtonText = styled.Text`
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-`;
-
-export const ErrorText = styled.Text`
-  color: red;
-  font-size: 14px;
-  margin-top: -10px;
-  margin-bottom: 10px;
+export const ErrorMessage = styled.div`
+    color: red;
+    margin-bottom: 15px;
+    font-size: 0.9em;
 `;
