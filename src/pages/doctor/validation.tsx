@@ -1,5 +1,4 @@
-// src/validations/DoctorForm.validations.tsx
-import { FormData } from '../app';
+import { FormData } from './app';
 
 export const validateFields = (formData: FormData) => {
   let errors = {
