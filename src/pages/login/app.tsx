@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { Container, Form, Input, Button, ErrorMessage } from './style';
+import { validateEmail } from './validation';
+import Register from '../Register/app';
 
 const App: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-
-    const validateEmail = (email: string) => {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return regex.test(email);
-    };
+    const [isRegister, setIsRegister] = useState(false); // Estado para alternar entre Login e Registro
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
@@ -34,26 +32,35 @@ const App: React.FC = () => {
 
     return (
         <Container>
-            <h1>Login</h1>
-            <Form onSubmit={handleSubmit}>
-                <Input
-                    type="email"
-                    placeholder="E-mail"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                <Input
-                    type="password"
-                    placeholder="Senha"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                {error && <ErrorMessage>{error}</ErrorMessage>}
-                <Button type="submit">Entrar</Button>
-            </Form>
-            <a href="/recuperar-senha">Esqueceu sua senha?</a>
+            {isRegister ? (
+                <Register />
+            ) : (
+                <>
+                    <h1>Login</h1>
+                    <Form onSubmit={handleSubmit}>
+                        <Input
+                            type="email"
+                            placeholder="E-mail"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                        <Input
+                            type="password"
+                            placeholder="Senha"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                        {error && <ErrorMessage>{error}</ErrorMessage>}
+                        <Button type="submit">Entrar</Button>
+                        {/* Link para alternar para o componente Register */}
+                        <a href="#" onClick={() => setIsRegister(true)}>
+                            Registre-se
+                        </a>
+                    </Form>
+                </>
+            )}
         </Container>
     );
 };

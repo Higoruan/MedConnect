@@ -5,8 +5,9 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
     background-color: #f4f4f4;
+    height: 100vh; /* Adiciona altura de 100% da viewport */
+    width: 100vw;  /* Adiciona largura de 100% da viewport */
 `;
 
 export const Form = styled.form`
