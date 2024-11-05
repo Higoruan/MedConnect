@@ -4,19 +4,19 @@ export const Container = styled.View`
   flex: 1;
   padding: 20px;
   background-color: #f4f4f4;
-  align-items: center; /* Você pode manter isso se quiser centralizar os itens horizontalmente */
-  justify-content: flex-start; /* Muda para flex-start para começar do topo */
+  align-items: center;
+  justify-content: flex-start; 
 `;
 
 export const Form = styled.View`
   display: flex;
   flex-direction: column;
-  width: 100%; /* Muda para 100% para ocupar toda a largura */
-  height: 100%; /* Muda para 100% para ocupar toda a altura */
+  width: 100%; 
+  height: 100%; 
   background: white;
-  padding: 20px; /* Você pode manter ou ajustar o padding se necessário */
-  border-radius: 0; /* Remove o border-radius para que não haja cantos arredondados */
-  box-shadow: none; /* Remove a sombra */
+  padding: 20px; 
+  border-radius: 0; 
+  box-shadow: none; 
 `;
 
 export const Input = styled.TextInput`
@@ -33,7 +33,7 @@ export const Button = styled.TouchableOpacity`
   align-items: center;
 
   &:active {
-    background-color: #0056b3; /* Se você quiser adicionar um efeito de pressionar */
+    background-color: #0056b3;
   }
 `;
 

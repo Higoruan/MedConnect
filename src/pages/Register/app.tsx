@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Form, Input, Button, ErrorMessage } from './style';
-import { validateEmail } from './validation'; // Certifique-se de que você tenha essa função de validação
+import { validateEmail } from './validation'; 
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState('');
