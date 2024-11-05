@@ -31,7 +31,7 @@ const PatientForm: React.FC = () => {
 
   return (
     <Form>
-      <Title>Cadastro de Paciente</Title>
+      <Title>Paciente</Title>
 
       {/* Nome */}
       <Field>
