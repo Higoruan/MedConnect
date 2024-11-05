@@ -1,18 +1,8 @@
+// src/components/PatientForm.tsx
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-
-// Função para validar CPF
-const validateCPF = (cpf: string) => {
-  const regex = /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/;
-  return regex.test(cpf);
-};
-
-// Função para validar email
-const validateEmail = (email: string) => {
-  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return regex.test(email);
-};
+import { Button, Alert } from 'react-native';
+import { validateCPF, validateEmail } from './validation';
+import { Form, Title, Field, Input, ErrorText } from './style';
 
 const PatientForm: React.FC = () => {
   const [name, setName] = useState('');
@@ -21,7 +11,6 @@ const PatientForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const navigation = useNavigation();
 
   const handleSubmit = () => {
     let validationErrors: { [key: string]: string } = {};
@@ -35,116 +24,73 @@ const PatientForm: React.FC = () => {
 
     setErrors(validationErrors);
 
-    // Se não houver erros, enviar os dados
     if (Object.keys(validationErrors).length === 0) {
-      console.log({
-        name,
-        cpf,
-        birthDate,
-        email,
-        phone,
-      });
+      console.log({ name, cpf, birthDate, email, phone });
       Alert.alert('Paciente cadastrado com sucesso!');
     }
   };
 
   return (
-    <View style={styles.form}>
-      <Text style={styles.title}>Cadastro de Paciente</Text>
+    <Form>
+      <Title>Cadastro de Paciente</Title>
 
       {/* Nome */}
-      <View style={styles.field}>
-        <Text>Nome*</Text>
-        <TextInput
-          style={styles.input}
+      <Field>
+        <Input
+          placeholder="Nome*"
           value={name}
           onChangeText={setName}
         />
-        {errors.name && <Text style={styles.error}>{errors.name}</Text>}
-      </View>
+        {errors.name && <ErrorText>{errors.name}</ErrorText>}
+      </Field>
 
       {/* CPF */}
-      <View style={styles.field}>
-        <Text>CPF*</Text>
-        <TextInput
-          style={styles.input}
+      <Field>
+        <Input
+          placeholder="CPF*"
           value={cpf}
           onChangeText={setCpf}
-          placeholder="000.000.000-00"
+          keyboardType="numeric"
         />
-        {errors.cpf && <Text style={styles.error}>{errors.cpf}</Text>}
-      </View>
+        {errors.cpf && <ErrorText>{errors.cpf}</ErrorText>}
+      </Field>
 
       {/* Data de Nascimento */}
-      <View style={styles.field}>
-        <Text>Data de Nascimento*</Text>
-        <TextInput
-          style={styles.input}
+      <Field>
+        <Input
+          placeholder="Data de Nascimento*"
           value={birthDate}
           onChangeText={setBirthDate}
-          placeholder="YYYY-MM-DD"
+          keyboardType="numeric"
         />
-        {errors.birthDate && <Text style={styles.error}>{errors.birthDate}</Text>}
-      </View>
+        {errors.birthDate && <ErrorText>{errors.birthDate}</ErrorText>}
+      </Field>
 
       {/* E-mail */}
-      <View style={styles.field}>
-        <Text>E-mail</Text>
-        <TextInput
-          style={styles.input}
+      <Field>
+        <Input
+          placeholder="E-mail"
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
         />
-        {errors.email && <Text style={styles.error}>{errors.email}</Text>}
-      </View>
+        {errors.email && <ErrorText>{errors.email}</ErrorText>}
+      </Field>
 
       {/* Telefone */}
-      <View style={styles.field}>
-        <Text>Telefone</Text>
-        <TextInput
-          style={styles.input}
+      <Field>
+        <Input
+          placeholder="Telefone"
           value={phone}
           onChangeText={setPhone}
           keyboardType="phone-pad"
         />
-      </View>
+      </Field>
 
       {/* Botão Cadastrar */}
       <Button title="Cadastrar" onPress={handleSubmit} color="#28a745" />
-
-      {/* Botão Voltar */}
-      <Button title="Voltar" onPress={() => navigation.goBack()} color="#007bff" />
-    </View>
+    </Form>
   );
 };
-
-const styles = StyleSheet.create({
-  form: {
-    padding: 20,
-    backgroundColor: '#f4f4f4',
-    borderRadius: 5,
-    margin: 10,
-  },
-  title: {
-    fontSize: 20,
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  field: {
-    marginBottom: 15,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
-    borderRadius: 4,
-    backgroundColor: '#fff',
-  },
-  error: {
-    color: 'red',
-    fontSize: 12,
-  },
-});
 
 export default PatientForm;
