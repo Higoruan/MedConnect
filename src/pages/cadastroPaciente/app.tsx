@@ -1,4 +1,3 @@
-// src/components/PatientForm.tsx
 import React, { useState } from 'react';
 import { Button, Alert } from 'react-native';
 import { validateCPF, validateEmail } from './validation';
