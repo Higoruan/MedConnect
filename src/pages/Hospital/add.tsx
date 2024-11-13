@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Alert } from 'react-native';
 import { validateFields } from './validation';
-import { Form, Title, Field, Input, ErrorText } from './style';
+import { Form, Title, Field, Input, ErrorText } from './addStyle';
 
 export interface FormData {
     nome: string;
@@ -12,7 +12,7 @@ export interface FormData {
     senha: string;
 }
 
-const HospitalForm: React.FC = () => {
+const HospitalAdd: React.FC = () => {
     const [formData, setFormData] = useState<FormData>({
         nome: '',
         endereco: '',
@@ -38,21 +38,37 @@ const HospitalForm: React.FC = () => {
         }
     };
 
-    const handleSubmit = () => {
-        const validationErrors = validateFields(formData);
-        setErrors(validationErrors);
+    const handleSubmit = async () => {
+        try {
+            const response = await fetch('http://192.168.128.176:3000/hospital', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
 
-        if (Object.values(validationErrors).every((error) => error === '')) {
-            console.log('Dados do formulário:', formData);
+            if (!response.ok) {
+
+                if (response.status === 409) {
+                    Alert.alert('Email ja esta cadastrado no sistema!');
+                    return;
+                }
+
+                throw new Error('Erro ao conectar com a API');
+
+            }
+
+            const data = await response.json();
+            console.log('Dados da API:', data);
             Alert.alert('Médico cadastrado com sucesso!');
+        } catch (error) {
+            console.error('Erro ao se comunicar com a API:', error);
         }
     };
 
     return (
         <Form>
-            <Title>Hospital</Title>
+            <Title>Cadastrar Hospital</Title>
 
-            {/* Nome Completo */}
             <Field>
                 <Input
                     placeholder="Nome Completo*"
@@ -62,7 +78,6 @@ const HospitalForm: React.FC = () => {
                 {errors.nome && <ErrorText>{errors.nome}</ErrorText>}
             </Field>
 
-            {/* endereco */}
             <Field>
                 <Input
                     placeholder="Endereco*"
@@ -72,7 +87,6 @@ const HospitalForm: React.FC = () => {
                 {errors.endereco && <ErrorText>{errors.endereco}</ErrorText>}
             </Field>
 
-            {/* cnpj */}
             <Field>
                 <Input
                     placeholder="CNPJ*"
@@ -82,7 +96,6 @@ const HospitalForm: React.FC = () => {
                 {errors.cnpj && <ErrorText>{errors.cnpj}</ErrorText>}
             </Field>
 
-            {/* Telefone */}
             <Field>
                 <Input
                     placeholder="Telefone"
@@ -93,7 +106,6 @@ const HospitalForm: React.FC = () => {
                 {errors.telefone && <ErrorText>{errors.telefone}</ErrorText>}
             </Field>
 
-            {/* E-mail */}
             <Field>
                 <Input
                     placeholder="E-mail*"
@@ -104,7 +116,6 @@ const HospitalForm: React.FC = () => {
                 {errors.email && <ErrorText>{errors.email}</ErrorText>}
             </Field>
 
-            {/* Senha */}
             <Field>
                 <Input
                     placeholder="Senha*"
@@ -115,10 +126,9 @@ const HospitalForm: React.FC = () => {
                 {errors.senha && <ErrorText>{errors.senha}</ErrorText>}
             </Field>
 
-            {/* Botão Cadastrar */}
             <Button title="Cadastrar" onPress={handleSubmit} color="#28a745" />
         </Form>
     );
 };
 
-export default HospitalForm;
+export default HospitalAdd;
