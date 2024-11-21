@@ -109,6 +109,6 @@ A API oferece operações CRUD para cada uma das entidades no sistema. Aqui est�
  • PUT /hospital/:id: Atualiza um hospital pelo ID.
  • DELETE /hospital/:id: Deleta um hospital pelo ID.
 
-###### Sobre o Sistema:
+##### Sobre o Sistema:
 
 O sistema foi planejado e desenvolvido para facilitar a informatização no processo de comunicação entre pacientes e hospitais, especialmente no agendamento de consultas com médicos especializados, conforme as necessidades do paciente. Ele será utilizado exclusivamente pelo hospital, que será responsável pelo cadastro de pacientes e médicos de diferentes especialidades. Além disso, o sistema contará com uma funcionalidade para registrar e armazenar atestados médicos, permitindo que os pacientes tenham acesso a esse documento sempre que necessário.
