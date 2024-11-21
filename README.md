@@ -50,6 +50,7 @@ npm install
 ├── react@18.2.0
 ├── styled-components@6.1.13
 └── typescript@5.6.3
+
  
  3. Inicie o servidor:
 
