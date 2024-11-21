@@ -29,7 +29,7 @@ Para configurar o projeto localmente, siga as etapas abaixo.
    cd medconnect
 
 2. Instale as dependências:
-
+content = """
 npm install
 ├── @babel/core@7.25.8
 ├── @expo/metro-runtime@3.2.3
@@ -50,8 +50,8 @@ npm install
 ├── react@18.2.0
 ├── styled-components@6.1.13
 └── typescript@5.6.3
+"""
 
- 
  3. Inicie o servidor:
 
 npm start
