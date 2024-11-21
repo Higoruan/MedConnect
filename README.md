@@ -20,7 +20,7 @@ Para configurar o projeto localmente, siga as etapas abaixo.
 - *MySQL* (para o banco de dados)
 - *Expo* (para rodar na plataforma mobile)
 
-### Passo a Passo
+### Configuração
 
 1. Clone o repositório:
 
