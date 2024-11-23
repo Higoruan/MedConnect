@@ -32,7 +32,7 @@ const HospitalList: React.FC = () => {
 
     const fetchHospitais = async () => {
         try {
-            const response = await fetch('http://192.168.128.176:3000/hospital');
+            const response = await fetch('http://localhost:3000/hospital');
             if (!response.ok) {
                 throw new Error('Erro ao carregar os hospitais');
             }
@@ -47,7 +47,7 @@ const HospitalList: React.FC = () => {
 
     const handleDelete = async (id: number) => {
         try {
-            const response = await fetch(`http://192.168.128.176:3000/hospital/${id}`, {
+            const response = await fetch(`http://localhost:3000/hospital/${id}`, {
                 method: 'DELETE',
             });
 
