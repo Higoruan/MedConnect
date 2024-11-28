@@ -1,28 +1,84 @@
-import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import React, { useEffect, useState } from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
-const data = [
-  { name: 'Janeiro', vendas: 4000, lucro: 2400 },
-  { name: 'Fevereiro', vendas: 3000, lucro: 1398 },
-  { name: 'Março', vendas: 2000, lucro: 9800 },
-  { name: 'Abril', vendas: 2780, lucro: 3908 },
-  { name: 'Maio', vendas: 1890, lucro: 4800 },
-  { name: 'Junho', vendas: 2390, lucro: 3800 },
-  { name: 'Julho', vendas: 3490, lucro: 4300 },
-];
+interface ChartData {
+  cid: string;
+  count: number;
+  color: string;
+}
+
+const getColor = (count: number, maxCount: number): string => {
+  const normalized = count / maxCount;
+  if (normalized < 0.5) {
+    const green = Math.min(255, Math.floor(255 * (1 - 2 * normalized)));
+    return `rgb(0, ${green}, 0)`;
+  } else if (normalized === 0.5) {
+    return `rgb(255, 255, 0)`;
+  } else {
+    const red = Math.min(255, Math.floor(255 * (2 * (normalized - 0.5))));
+    return `rgb(${red}, 0, 0)`;
+  }
+};
 
 const BarChartDashboard: React.FC = () => {
+  const [chartData, setChartData] = useState<ChartData[]>([]);
+
+  const fetchAtestado = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/atestado');
+      if (!response.ok) {
+        throw new Error('Erro ao carregar os dados');
+      }
+
+      const data = await response.json();
+      console.log('Resposta da API:', data);
+
+      if (!Array.isArray(data.atestado)) {
+        console.error('A propriedade "atestado" não é um array');
+        return;
+      }
+
+      const cidCounts = data.atestado.reduce((acc: Record<string, number>, item: any) => {
+        acc[item.cid_nome] = (acc[item.cid_nome] || 0) + 1;
+        return acc;
+      }, {});
+
+      const formattedData: ChartData[] = Object.entries(cidCounts).map(([cid, count]) => ({
+        cid,
+        count: Number(count),
+        color: '',
+      }));
+
+      const maxCount = Math.max(...formattedData.map(item => item.count));
+
+      const updatedData = formattedData.map(item => ({
+        ...item,
+        color: getColor(item.count, maxCount),
+      }));
+
+      setChartData(updatedData);
+    } catch (error) {
+      console.error('Erro ao carregar os dados:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAtestado();
+  }, []);
+
   return (
     <div style={{ width: '100%', height: '400px', marginTop: '20px' }}>
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={data}>
+        <BarChart data={chartData}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
+          <XAxis dataKey="cid" label={{ value: 'CIDs', position: 'insideBottom', offset: -5 }} />
+          <YAxis label={{ value: 'Frequência', angle: -90, position: 'insideLeft' }} />
           <Tooltip />
-          <Legend />
-          <Bar dataKey="vendas" fill="#8884d8" name="Vendas" />
-          <Bar dataKey="lucro" fill="#82ca9d" name="Lucro" />
+          <Bar dataKey="count" name="Frequência">
+            {chartData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={entry.color} />
+            ))}
+          </Bar>
         </BarChart>
       </ResponsiveContainer>
     </div>
