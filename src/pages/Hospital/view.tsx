@@ -64,12 +64,12 @@ const HospitalList: React.FC = () => {
     };
 
     const handleEdit = (hospital: Hospital) => {
-        setHospitalToEdit(hospital); // Define o hospital para edição
+        setHospitalToEdit(hospital);
     };
 
     const handleUpdate = () => {
-        setHospitalToEdit(null); // Fecha a tela de edição
-        fetchHospitais(); // Atualiza a lista de hospitais
+        setHospitalToEdit(null);
+        fetchHospitais();
     };
 
     return (

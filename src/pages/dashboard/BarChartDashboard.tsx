@@ -20,8 +20,26 @@ const getColor = (count: number, maxCount: number): string => {
   }
 };
 
+const calculateStats = (data: ChartData[]) => {
+  const total = data.reduce((sum, item) => sum + item.count, 0);
+  const mean = total / data.length;
+  const max = Math.max(...data.map(item => item.count));
+  const min = Math.min(...data.map(item => item.count));
+  const variance = data.reduce((sum, item) => sum + Math.pow(item.count - mean, 2), 0) / data.length;
+  const stdDev = Math.sqrt(variance);
+
+  return { total, mean, max, min, stdDev };
+};
+
 const BarChartDashboard: React.FC = () => {
   const [chartData, setChartData] = useState<ChartData[]>([]);
+  const [stats, setStats] = useState({
+    total: 0,
+    mean: 0,
+    max: 0,
+    min: 0,
+    stdDev: 0,
+  });
 
   const fetchAtestado = async () => {
     try {
@@ -57,6 +75,7 @@ const BarChartDashboard: React.FC = () => {
       }));
 
       setChartData(updatedData);
+      setStats(calculateStats(updatedData));
     } catch (error) {
       console.error('Erro ao carregar os dados:', error);
     }
@@ -67,8 +86,8 @@ const BarChartDashboard: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ width: '100%', height: '400px', marginTop: '20px' }}>
-      <ResponsiveContainer width="100%" height="100%">
+    <div style={{ width: '100%', height: '500px', marginTop: '20px' }}>
+      <ResponsiveContainer width="100%" height="70%">
         <BarChart data={chartData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="cid" label={{ value: 'CIDs', position: 'insideBottom', offset: -5 }} />
@@ -81,6 +100,14 @@ const BarChartDashboard: React.FC = () => {
           </Bar>
         </BarChart>
       </ResponsiveContainer>
+      <div style={{ marginTop: '20px', padding: '10px', background: '#f8f9fa', borderRadius: '5px' }}>
+        <h4>Estatísticas</h4>
+        <p><strong>A soma total das frequências é:</strong> {stats.total}</p>
+        <p><strong>Em média, cada CID aparece cerca de:</strong> {stats.mean.toFixed(2)} vezes</p>
+        <p><strong>Máximo:</strong> {stats.max}</p>
+        <p><strong>Mínimo:</strong> {stats.min}</p>
+        <p><strong>Desvio Padrão de:</strong> {stats.stdDev.toFixed(2)}</p>
+      </div>
     </div>
   );
 };
