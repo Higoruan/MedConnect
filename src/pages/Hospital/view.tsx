@@ -40,6 +40,7 @@ const HospitalList: React.FC = () => {
             const data = await response.json();
             setHospitais(data.hospital);
         } catch (error) {
+            console.log(error);
             console.error('Erro ao carregar hospitais:', error);
             Alert.alert('Erro', 'Não foi possível carregar os hospitais');
         }
