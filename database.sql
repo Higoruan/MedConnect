@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS medconnect.Consulta (
   data TIMESTAMP NOT NULL,
   Medico_id INT(11) NOT NULL,
   Paciente_id INT(11) NOT NULL,
-  descricao VARCHAR(45) NOT NULL,
+  descricao VARCHAR(255) NOT NULL,
   PRIMARY KEY (id),
   INDEX fk_Consulta_Medico1_idx (Medico_id ASC) ,
   INDEX fk_Consulta_Paciente1_idx (Paciente_id ASC) ,
@@ -73,9 +73,9 @@ DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS medconnect.Cids (
   id INT(11) NOT NULL AUTO_INCREMENT,
-  nome TEXT NOT NULL
+  nome TEXT NOT NULL,
   cod INT(11) NOT NULL,
-  descricao TEXT NOT NULL,
+  descricao VARCHAR(255) NOT NULL,
   PRIMARY KEY (id))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
