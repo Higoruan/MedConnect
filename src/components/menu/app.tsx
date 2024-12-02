@@ -5,7 +5,7 @@ import HomeScreen from '../../pages/home/app';
 import Patient from '../../pages/Patient/app';
 import HospAdd from '../../pages/Hospital/add';
 import HospView from '../../pages/Hospital/view';
-import Doctor from '../../pages/doctor/app';
+import DoctorAdd from '../../pages/doctor/add';
 import Dashboard from '../../pages/dashboard/app';
 
 const Tab = createBottomTabNavigator();
@@ -22,7 +22,7 @@ const BottomMenu = () => {
                 <Tab.Screen name="🏥➕" component={HospAdd} />
                 <Tab.Screen name="🏥📄" component={HospView} />
                 <Tab.Screen name="😷➕" component={Patient} />
-                <Tab.Screen name="👨🏻‍⚕️➕" component={Doctor} />
+                <Tab.Screen name="👨🏻‍⚕️➕" component={DoctorAdd} />
                 <Tab.Screen name="📊" component={Dashboard} />
 
             </Tab.Navigator>
