@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
 
 interface ChartData {
   cid: string;
@@ -44,14 +44,12 @@ const BarChartDashboard: React.FC = () => {
 
   const fetchAtestado = async () => {
     try {
-      const response = await fetch('http://192.168.126.203:3000/atestado');
+      const response = await fetch('http://localhost:3000/atestado');
       if (!response.ok) {
         throw new Error('Erro ao carregar os dados');
       }
 
       const data = await response.json();
-      console.log('Resposta da API:', data);
-
       if (!Array.isArray(data.atestado)) {
         console.error('A propriedade "atestado" não é um array');
         return;
@@ -87,26 +85,23 @@ const BarChartDashboard: React.FC = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      {/* Substituindo Appbar por um cabeçalho simples */}
+    <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Gráfico de Frequências</Text>
       </View>
 
       <View style={styles.chartContainer}>
-        <ResponsiveContainer width="100%" height="70%">
-          <BarChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="cid" label={{ value: 'CIDs', position: 'insideBottom', offset: -5 }} />
-            <YAxis label={{ value: 'Frequência', angle: -90, position: 'insideLeft' }} />
-            <Tooltip />
-            <Bar dataKey="count" name="Frequência">
-              {chartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
-              ))}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
+        <BarChart data={chartData} width={350} height={300} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="cid" />
+          <YAxis />
+          <Tooltip />
+          <Bar dataKey="count" name="Frequência">
+            {chartData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={entry.color} />
+            ))}
+          </Bar>
+        </BarChart>
       </View>
 
       <View style={styles.statsContainer}>
@@ -117,7 +112,7 @@ const BarChartDashboard: React.FC = () => {
         <Text><Text style={styles.boldText}>Mínimo:</Text> {stats.min}</Text>
         <Text><Text style={styles.boldText}>Desvio Padrão de:</Text> {stats.stdDev.toFixed(2)}</Text>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -125,10 +120,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    padding: 10,
   },
   header: {
     backgroundColor: '#6200ea',
     padding: 15,
+    marginBottom: 10,
   },
   headerText: {
     color: '#fff',
@@ -136,9 +133,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   chartContainer: {
-    width: '100%',
-    height: 300,
-    marginTop: 20,
+    alignItems: 'center',
   },
   statsContainer: {
     marginTop: 20,
