@@ -13,7 +13,7 @@
     "@emotion/styled": "^11.13.5",
     "@expo/metro-runtime": "~3.2.3",
     "@mui/icons-material": "^6.1.8",
-    "@mui/material": "^6.1.8",
+    "@mui/material": "^6.1.9",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/bottom-tabs": "^6.6.1",
     "@react-navigation/native": "^6.1.18",
