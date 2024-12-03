@@ -4,12 +4,9 @@ import * as S from './editStyle';
 
 interface Doctor {
     id: number;
-    nome: string;
-    endereco: string;
-    cnpj: string;
-    telefone: string;
-    email: string;
-    senha: string;
+    nomeCompleto: string;
+    crm: string;
+    especialidade: string;
 }
 
 interface EditDocProps {
@@ -19,10 +16,9 @@ interface EditDocProps {
 
 const EditDoc: React.FC<EditDocProps> = ({ doctor, onUpdate }) => {
     const navigation = useNavigation(); // Hook para navegação
-    const [nome, setNome] = useState(doctor.nome);
-    const [endereco, setEndereco] = useState(doctor.endereco);
-    const [telefone, setTelefone] = useState(doctor.telefone);
-    const [email, setEmail] = useState(doctor.email);
+    const [nomeCompleto, setNome] = useState(doctor.nomeCompleto);
+    const [crm, setCrm] = useState(doctor.crm);
+    const [especialidade, setEspecialidade] = useState(doctor.especialidade);
 
     // Função para lidar com o cancelamento
     const handleCanceled = () => {
@@ -32,14 +28,13 @@ const EditDoc: React.FC<EditDocProps> = ({ doctor, onUpdate }) => {
 
     const handleSaveChanges = async () => {
         const formData = {
-            nome,
-            endereco,
-            telefone,
-            email,
+            nomeCompleto,
+            crm,
+            especialidade,
         };
 
         try {
-            const response = await fetch(`http://192.168.128.176:3000/doctor/${doctor.id}`, {
+            const response = await fetch(`http://192.168.25.36:3000/doctor/${doctor.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
@@ -61,19 +56,15 @@ const EditDoc: React.FC<EditDocProps> = ({ doctor, onUpdate }) => {
             <S.Form>
                 <S.Field>
                     <S.InputLabel>Nome</S.InputLabel>
-                    <S.Input value={nome} onChangeText={setNome} />
+                    <S.Input value={nomeCompleto} onChangeText={setNome} />
                 </S.Field>
                 <S.Field>
-                    <S.InputLabel>Endereço</S.InputLabel>
-                    <S.Input value={endereco} onChangeText={setEndereco} />
+                    <S.InputLabel>CRM</S.InputLabel>
+                    <S.Input value={crm} onChangeText={setCrm} />
                 </S.Field>
                 <S.Field>
-                    <S.InputLabel>Telefone</S.InputLabel>
-                    <S.Input value={telefone} onChangeText={setTelefone} />
-                </S.Field>
-                <S.Field>
-                    <S.InputLabel>Email</S.InputLabel>
-                    <S.Input value={email} onChangeText={setEmail} />
+                    <S.InputLabel>Especialidade</S.InputLabel>
+                    <S.Input value={especialidade} onChangeText={setEspecialidade} />
                 </S.Field>
 
                 <S.ButtonContainer>
