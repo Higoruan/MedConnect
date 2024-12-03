@@ -37,7 +37,7 @@ export interface FormData {
 
     const handleSubmit = async () => {
         try {
-            const response = await fetch('http://localhost:3000/doctor', {
+            const response = await fetch('http://192.168.126.203:3000/doctor', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),

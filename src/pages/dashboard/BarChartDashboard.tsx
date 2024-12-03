@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
 interface ChartData {
@@ -43,7 +44,7 @@ const BarChartDashboard: React.FC = () => {
 
   const fetchAtestado = async () => {
     try {
-      const response = await fetch('http://localhost:3000/atestado');
+      const response = await fetch('http://192.168.126.203:3000/atestado');
       if (!response.ok) {
         throw new Error('Erro ao carregar os dados');
       }
@@ -86,30 +87,72 @@ const BarChartDashboard: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ width: '100%', height: '500px', marginTop: '20px' }}>
-      <ResponsiveContainer width="100%" height="70%">
-        <BarChart data={chartData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="cid" label={{ value: 'CIDs', position: 'insideBottom', offset: -5 }} />
-          <YAxis label={{ value: 'Frequência', angle: -90, position: 'insideLeft' }} />
-          <Tooltip />
-          <Bar dataKey="count" name="Frequência">
-            {chartData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={entry.color} />
-            ))}
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
-      <div style={{ marginTop: '20px', padding: '10px', background: '#f8f9fa', borderRadius: '5px' }}>
-        <h4>Estatísticas</h4>
-        <p><strong>A soma total das frequências é:</strong> {stats.total}</p>
-        <p><strong>Em média, cada CID aparece cerca de:</strong> {stats.mean.toFixed(2)} vezes</p>
-        <p><strong>Máximo:</strong> {stats.max}</p>
-        <p><strong>Mínimo:</strong> {stats.min}</p>
-        <p><strong>Desvio Padrão de:</strong> {stats.stdDev.toFixed(2)}</p>
-      </div>
-    </div>
+    <View style={styles.container}>
+      {/* Substituindo Appbar por um cabeçalho simples */}
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Gráfico de Frequências</Text>
+      </View>
+
+      <View style={styles.chartContainer}>
+        <ResponsiveContainer width="100%" height="70%">
+          <BarChart data={chartData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="cid" label={{ value: 'CIDs', position: 'insideBottom', offset: -5 }} />
+            <YAxis label={{ value: 'Frequência', angle: -90, position: 'insideLeft' }} />
+            <Tooltip />
+            <Bar dataKey="count" name="Frequência">
+              {chartData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.color} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </View>
+
+      <View style={styles.statsContainer}>
+        <Text style={styles.statsTitle}>Estatísticas</Text>
+        <Text><Text style={styles.boldText}>A soma total das frequências é:</Text> {stats.total}</Text>
+        <Text><Text style={styles.boldText}>Em média, cada CID aparece cerca de:</Text> {stats.mean.toFixed(2)} vezes</Text>
+        <Text><Text style={styles.boldText}>Máximo:</Text> {stats.max}</Text>
+        <Text><Text style={styles.boldText}>Mínimo:</Text> {stats.min}</Text>
+        <Text><Text style={styles.boldText}>Desvio Padrão de:</Text> {stats.stdDev.toFixed(2)}</Text>
+      </View>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  header: {
+    backgroundColor: '#6200ea',
+    padding: 15,
+  },
+  headerText: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  chartContainer: {
+    width: '100%',
+    height: 300,
+    marginTop: 20,
+  },
+  statsContainer: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: '#f8f9fa',
+    borderRadius: 5,
+  },
+  statsTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  boldText: {
+    fontWeight: 'bold',
+  },
+});
 
 export default BarChartDashboard;
