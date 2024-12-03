@@ -14,7 +14,7 @@ import {
 
 interface Doctor {
     id: number;
-    nome: string;
+    nomeCompleto: string;
     endereco: string;
     cnpj: string;
     telefone: string;
@@ -82,7 +82,7 @@ const DoctorList: React.FC = () => {
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({ item }) => (
                         <DoctorCard>
-                            <DoctorName>{item.nome}</DoctorName>
+                            <DoctorName>{item.nomeCompleto}</DoctorName>
                             <DoctorDetails>{item.endereco}</DoctorDetails>
                             <DoctorDetails>{item.telefone}</DoctorDetails>
                             <DoctorDetails>{item.email}</DoctorDetails>
