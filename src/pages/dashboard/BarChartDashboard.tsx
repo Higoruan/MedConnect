@@ -86,10 +86,6 @@ const BarChartDashboard: React.FC = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Gráfico de Frequências</Text>
-      </View>
-
       <View style={styles.chartContainer}>
         <BarChart data={chartData} width={350} height={300} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" />
