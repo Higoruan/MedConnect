@@ -7,8 +7,6 @@ export interface FormData {
     nomeCompleto: string;
     crm: string;
     especialidade: string;
-    telefone: string;
-    email: string;
   }
   
   const MedicoForm: React.FC = () => {
@@ -16,16 +14,12 @@ export interface FormData {
       nomeCompleto: '',
       crm: '',
       especialidade: '',
-      telefone: '',
-      email: '',
     });
   
     const [errors, setErrors] = useState<FormData>({
       nomeCompleto: '',
       crm: '',
       especialidade: '',
-      telefone: '',
-      email: '',
     });
 
     const handleInputChange = (field: keyof FormData, value: string) => {
@@ -94,30 +88,7 @@ export interface FormData {
               onChangeText={(value) => handleInputChange('especialidade', value)}
             />
             {errors.especialidade && <ErrorText>{errors.especialidade}</ErrorText>}
-          </Field>
-    
-          {/* Telefone */}
-          <Field>
-            <Input
-              placeholder="Telefone"
-              value={formData.telefone}
-              onChangeText={(value) => handleInputChange('telefone', value)}
-              keyboardType="phone-pad"
-            />
-            {errors.telefone && <ErrorText>{errors.telefone}</ErrorText>}
-          </Field>
-    
-          {/* E-mail */}
-          <Field>
-            <Input
-              placeholder="E-mail*"
-              value={formData.email}
-              onChangeText={(value) => handleInputChange('email', value)}
-              keyboardType="email-address"
-            />
-            {errors.email && <ErrorText>{errors.email}</ErrorText>}
-          </Field>
-    
+          </Field>    
           {/* Botão Cadastrar */}
           <Button title="Cadastrar" onPress={handleSubmit} color="#28a745" />
         </Form>

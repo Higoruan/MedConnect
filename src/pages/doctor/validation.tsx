@@ -5,8 +5,6 @@ export const validateFields = (formData: FormData) => {
     nomeCompleto: '',
     crm: '',
     especialidade: '',
-    telefone: '',
-    email: '',
   };
 
   if (!formData.nomeCompleto) {
@@ -19,10 +17,6 @@ export const validateFields = (formData: FormData) => {
 
   if (!formData.especialidade) {
     errors.especialidade = 'Especialidade é obrigatória';
-  }
-
-  if (formData.telefone && formData.telefone.replace(/\D/g, '').length < 10) {
-    errors.telefone = 'Telefone deve ter pelo menos 10 dígitos';
   }
 
   return errors;
