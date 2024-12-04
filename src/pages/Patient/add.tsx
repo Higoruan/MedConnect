@@ -38,7 +38,7 @@ const PacienteAdd: React.FC = () => {
 
     const handleSubmit = async () => {
         try {
-            const response = await fetch('http://192.168.11.188:3000/paciente', {
+            const response = await fetch('http://localhost:3000/paciente', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),

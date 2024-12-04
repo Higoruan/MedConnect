@@ -38,7 +38,7 @@ const EditHosp: React.FC<EditHospProps> = ({ paciente, onUpdate }) => {
         };
 
         try {
-            const response = await fetch(`http://192.168.11.188:3000/paciente/${paciente.id}`, {
+            const response = await fetch(`http://localhost:3000/paciente/${paciente.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),

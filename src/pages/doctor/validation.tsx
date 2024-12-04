@@ -1,4 +1,4 @@
-import { FormData } from './app';
+import { FormData } from './add';
 
 export const validateFields = (formData: FormData) => {
   let errors = {
