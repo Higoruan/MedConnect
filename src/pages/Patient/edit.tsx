@@ -8,15 +8,14 @@ interface Paciente {
     cpf: string;
     telefone: string;
     email: string;
-    senha: string;
 }
 
-interface EditHospProps {
+interface EditPacProps {
     paciente: Paciente;
-    onUpdate: () => void; // Callback para atualizar a lista de hospitais
+    onUpdate: () => void; // Callback para atualizar a lista de pacientes
 }
 
-const EditHosp: React.FC<EditHospProps> = ({ paciente, onUpdate }) => {
+const EditPac: React.FC<EditPacProps> = ({ paciente, onUpdate }) => {
     const navigation = useNavigation(); // Hook para navegação
     const [nome, setNome] = useState(paciente.nome);
     const [endereco, setEndereco] = useState(paciente.endereco);
@@ -48,7 +47,7 @@ const EditHosp: React.FC<EditHospProps> = ({ paciente, onUpdate }) => {
                 throw new Error('Erro ao atualizar o paciente');
             }
 
-            onUpdate(); // Atualiza a lista de hospitais
+            onUpdate(); // Atualiza a lista de pacientes
         } catch (error) {
             console.error('Erro ao atualizar Paciente:', error);
         }
@@ -85,4 +84,4 @@ const EditHosp: React.FC<EditHospProps> = ({ paciente, onUpdate }) => {
     );
 };
 
-export default EditHosp;
+export default EditPac;

@@ -55,7 +55,7 @@ npm install
 
 npm start
 
-O servidor estará em execução no endereço <http://192.168.25.36:8081>.
+O servidor estará em execução no endereço <http://localhost:8081>.
 
 Dependências do Projeto
 
@@ -65,7 +65,7 @@ Dependências do Projeto
  
 Documentação da API
 
-A documentação da API está disponível em <http://192.168.25.36:8081/documentation>.
+A documentação da API está disponível em <http://localhost:8081/documentation>.
 
 Estrutura do Banco de Dados
 

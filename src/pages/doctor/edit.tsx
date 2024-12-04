@@ -34,7 +34,7 @@ const EditDoc: React.FC<EditDocProps> = ({ doctor, onUpdate }) => {
         };
 
         try {
-            const response = await fetch(`http://192.168.25.36:3000/doctor/${doctor.id}`, {
+            const response = await fetch(`http://localhost:3000/doctor/${doctor.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),

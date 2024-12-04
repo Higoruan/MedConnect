@@ -26,17 +26,17 @@ const BottomMenu = () => {
                 }}
             >
                 <Tab.Screen name="HOME" component={HomeScreen} />
-                <Tab.Screen name="🏥➕" component={HospAdd} />
-                <Tab.Screen name="🏥📄" component={HospView} />
-                <Tab.Screen name="🤧➕" component={Patient} />
+                <Tab.Screen name="HOSPITAL ADD" component={HospAdd} />
+                <Tab.Screen name="HOSPITAL VIEW" component={HospView} />
+                <Tab.Screen name="PACIENTE" component={Patient} />
                 {/* <Tab.Screen name="👨🏻‍⚕️➕" component={DoctorAdd} /> */}
                 {/* <Tab.Screen name="👨🏻‍⚕️📄" component={DoctorView} /> */}
-                <Tab.Screen name="😷➕" component={CidsAdd} />
-                <Tab.Screen name="!!" component={ConsultaAdd} />
-                <Tab.Screen name="!!!" component={ConsultarView} />
-                <Tab.Screen name="📃➕" component={AtestadoAdd} />
-                <Tab.Screen name="📃" component={AtestadoView} />
-                <Tab.Screen name="😷📄" component={CidsView} />
+                <Tab.Screen name="CIDS ADD" component={CidsAdd} />
+                <Tab.Screen name="CIDS VIEW" component={CidsView} />
+                <Tab.Screen name="CONSULTA ADD" component={ConsultaAdd} />
+                <Tab.Screen name="CONSULTA VIEW" component={ConsultarView} />
+                <Tab.Screen name="ATESTADO ADD" component={AtestadoAdd} />
+                <Tab.Screen name="ATESTADO VIEW" component={AtestadoView} />
                 <Tab.Screen name="📊" component={Dashboard} />
 
             </Tab.Navigator>
