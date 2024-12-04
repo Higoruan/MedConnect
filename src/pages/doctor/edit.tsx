@@ -2,27 +2,23 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native'; // Importa o hook de navegação
 import * as S from './editStyle';
 
-interface Hospital {
+interface Doctor {
     id: number;
-    nome: string;
-    endereco: string;
-    cnpj: string;
-    telefone: string;
-    email: string;
-    senha: string;
+    nomeCompleto: string;
+    crm: string;
+    especialidade: string;
 }
 
-interface EditHospProps {
-    hospital: Hospital;
+interface EditDocProps {
+    doctor: Doctor;
     onUpdate: () => void; // Callback para atualizar a lista de hospitais
 }
 
-const EditHosp: React.FC<EditHospProps> = ({ hospital, onUpdate }) => {
+const EditDoc: React.FC<EditDocProps> = ({ doctor, onUpdate }) => {
     const navigation = useNavigation(); // Hook para navegação
-    const [nome, setNome] = useState(hospital.nome);
-    const [endereco, setEndereco] = useState(hospital.endereco);
-    const [telefone, setTelefone] = useState(hospital.telefone);
-    const [email, setEmail] = useState(hospital.email);
+    const [nomeCompleto, setNome] = useState(doctor.nomeCompleto);
+    const [crm, setCrm] = useState(doctor.crm);
+    const [especialidade, setEspecialidade] = useState(doctor.especialidade);
 
     // Função para lidar com o cancelamento
     const handleCanceled = () => {
@@ -32,48 +28,43 @@ const EditHosp: React.FC<EditHospProps> = ({ hospital, onUpdate }) => {
 
     const handleSaveChanges = async () => {
         const formData = {
-            nome,
-            endereco,
-            telefone,
-            email,
+            nomeCompleto,
+            crm,
+            especialidade,
         };
 
         try {
-            const response = await fetch(`http://192.168.128.176:3000/hospital/${hospital.id}`, {
+            const response = await fetch(`http://192.168.25.36:3000/doctor/${doctor.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
             });
 
             if (!response.ok) {
-                throw new Error('Erro ao atualizar o hospital');
+                throw new Error('Erro ao atualizar o doctor');
             }
 
             onUpdate(); // Atualiza a lista de hospitais
         } catch (error) {
-            console.error('Erro ao atualizar hospital:', error);
+            console.error('Erro ao atualizar doctor:', error);
         }
     };
 
     return (
         <S.Container>
-            <S.Title>Editar Hospital</S.Title>
+            <S.Title>Editar Doctor</S.Title>
             <S.Form>
                 <S.Field>
                     <S.InputLabel>Nome</S.InputLabel>
-                    <S.Input value={nome} onChangeText={setNome} />
+                    <S.Input value={nomeCompleto} onChangeText={setNome} />
                 </S.Field>
                 <S.Field>
-                    <S.InputLabel>Endereço</S.InputLabel>
-                    <S.Input value={endereco} onChangeText={setEndereco} />
+                    <S.InputLabel>CRM</S.InputLabel>
+                    <S.Input value={crm} onChangeText={setCrm} />
                 </S.Field>
                 <S.Field>
-                    <S.InputLabel>Telefone</S.InputLabel>
-                    <S.Input value={telefone} onChangeText={setTelefone} />
-                </S.Field>
-                <S.Field>
-                    <S.InputLabel>Email</S.InputLabel>
-                    <S.Input value={email} onChangeText={setEmail} />
+                    <S.InputLabel>Especialidade</S.InputLabel>
+                    <S.Input value={especialidade} onChangeText={setEspecialidade} />
                 </S.Field>
 
                 <S.ButtonContainer>
@@ -90,4 +81,4 @@ const EditHosp: React.FC<EditHospProps> = ({ hospital, onUpdate }) => {
     );
 };
 
-export default EditHosp;
+export default EditDoc;

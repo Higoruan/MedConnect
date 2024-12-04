@@ -7,8 +7,8 @@ export const Container = styled.View`
   background-color: #f5f5f5;
 `;
 
-// Cartão de cada hospital
-export const HospitalCard = styled.View`
+// Cartão de cada doctor
+export const DoctorCard = styled.View`
   background-color: #fff;
   border-radius: 10px;
   padding: 20px;
@@ -20,15 +20,15 @@ export const HospitalCard = styled.View`
   elevation: 5;
 `;
 
-// Nome do hospital
-export const HospitalName = styled.Text`
+// Nome do doctor
+export const DoctorName = styled.Text`
   font-size: 20px;
   font-weight: bold;
   color: #333;
 `;
 
-// Detalhes do hospital (endereço, telefone, etc.)
-export const HospitalDetails = styled.Text`
+// Detalhes do doctor (endereço, telefone, etc.)
+export const DoctorDetails = styled.Text`
   font-size: 14px;
   color: #777;
   margin-top: 5px;

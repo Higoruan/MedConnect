@@ -6,29 +6,27 @@ import { Form, Title, Field, Input, ErrorText } from './addStyle';
 export interface FormData {
     nome: string;
     endereco: string;
-    cnpj: string;
+    cpf: string;
     telefone: string;
     email: string;
-    senha: string;
+    
 }
 
-const HospitalAdd: React.FC = () => {
+const PacienteAdd: React.FC = () => {
     const [formData, setFormData] = useState<FormData>({
         nome: '',
         endereco: '',
-        cnpj: '',
+        cpf: '',
         telefone: '',
         email: '',
-        senha: ''
     });
 
     const [errors, setErrors] = useState<FormData>({
         nome: '',
         endereco: '',
-        cnpj: '',
+        cpf: '',
         telefone: '',
-        email: '',
-        senha: '',
+        email: '',        
     });
 
     const handleInputChange = (field: keyof FormData, value: string) => {
@@ -40,7 +38,7 @@ const HospitalAdd: React.FC = () => {
 
     const handleSubmit = async () => {
         try {
-            const response = await fetch('http://192.168.25.36:3000/hospital', {
+            const response = await fetch('http://192.168.11.188:3000/paciente', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
@@ -59,7 +57,7 @@ const HospitalAdd: React.FC = () => {
 
             const data = await response.json();
             console.log('Dados da API:', data);
-            Alert.alert('Médico cadastrado com sucesso!');
+            Alert.alert('Paciente cadastrado com sucesso!');
         } catch (error) {
             console.error('Erro ao se comunicar com a API:', error);
         }
@@ -67,7 +65,7 @@ const HospitalAdd: React.FC = () => {
 
     return (
         <Form>
-            <Title>Cadastrar Hospital</Title>
+            <Title>Cadastrar Paciente</Title>
 
             <Field>
                 <Input
@@ -89,11 +87,11 @@ const HospitalAdd: React.FC = () => {
 
             <Field>
                 <Input
-                    placeholder="CNPJ*"
-                    value={formData.cnpj}
-                    onChangeText={(value) => handleInputChange('cnpj', value)}
+                    placeholder="CPF*"
+                    value={formData.cpf}
+                    onChangeText={(value) => handleInputChange('cpf', value)}
                 />
-                {errors.cnpj && <ErrorText>{errors.cnpj}</ErrorText>}
+                {errors.cpf && <ErrorText>{errors.cpf}</ErrorText>}
             </Field>
 
             <Field>
@@ -115,20 +113,10 @@ const HospitalAdd: React.FC = () => {
                 />
                 {errors.email && <ErrorText>{errors.email}</ErrorText>}
             </Field>
-
-            <Field>
-                <Input
-                    placeholder="Senha*"
-                    value={formData.senha}
-                    onChangeText={(value) => handleInputChange('senha', value)}
-                    keyboardType="default"
-                />
-                {errors.senha && <ErrorText>{errors.senha}</ErrorText>}
-            </Field>
-
+            
             <Button title="Cadastrar" onPress={handleSubmit} color="#28a745" />
         </Form>
     );
 };
 
-export default HospitalAdd;
+export default PacienteAdd;

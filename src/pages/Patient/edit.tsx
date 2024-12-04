@@ -2,27 +2,26 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native'; // Importa o hook de navegação
 import * as S from './editStyle';
 
-interface Hospital {
-    id: number;
+interface Paciente {
     nome: string;
     endereco: string;
-    cnpj: string;
+    cpf: string;
     telefone: string;
     email: string;
     senha: string;
 }
 
 interface EditHospProps {
-    hospital: Hospital;
+    paciente: Paciente;
     onUpdate: () => void; // Callback para atualizar a lista de hospitais
 }
 
-const EditHosp: React.FC<EditHospProps> = ({ hospital, onUpdate }) => {
+const EditHosp: React.FC<EditHospProps> = ({ paciente, onUpdate }) => {
     const navigation = useNavigation(); // Hook para navegação
-    const [nome, setNome] = useState(hospital.nome);
-    const [endereco, setEndereco] = useState(hospital.endereco);
-    const [telefone, setTelefone] = useState(hospital.telefone);
-    const [email, setEmail] = useState(hospital.email);
+    const [nome, setNome] = useState(paciente.nome);
+    const [endereco, setEndereco] = useState(paciente.endereco);
+    const [telefone, setTelefone] = useState(paciente.telefone);
+    const [email, setEmail] = useState(paciente.email);
 
     // Função para lidar com o cancelamento
     const handleCanceled = () => {
@@ -39,33 +38,29 @@ const EditHosp: React.FC<EditHospProps> = ({ hospital, onUpdate }) => {
         };
 
         try {
-            const response = await fetch(`http://192.168.25.36:3000/hospital/${hospital.id}`, {
+            const response = await fetch(`http://192.168.11.188:3000/paciente/${paciente.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
             });
 
             if (!response.ok) {
-                throw new Error('Erro ao atualizar o hospital');
+                throw new Error('Erro ao atualizar o paciente');
             }
 
             onUpdate(); // Atualiza a lista de hospitais
         } catch (error) {
-            console.error('Erro ao atualizar hospital:', error);
+            console.error('Erro ao atualizar Paciente:', error);
         }
     };
 
     return (
         <S.Container>
-            <S.Title>Editar Hospital</S.Title>
+            <S.Title>Editar Paciente</S.Title>
             <S.Form>
                 <S.Field>
                     <S.InputLabel>Nome</S.InputLabel>
                     <S.Input value={nome} onChangeText={setNome} />
-                </S.Field>
-                <S.Field>
-                    <S.InputLabel>Endereço</S.InputLabel>
-                    <S.Input value={endereco} onChangeText={setEndereco} />
                 </S.Field>
                 <S.Field>
                     <S.InputLabel>Telefone</S.InputLabel>
