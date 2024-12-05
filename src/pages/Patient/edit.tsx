@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native'; // Importa o hook de n
 import * as S from './editStyle';
 
 interface Paciente {
+    id: number;
     nome: string;
     endereco: string;
     cpf: string;
@@ -37,7 +38,7 @@ const EditPac: React.FC<EditPacProps> = ({ paciente, onUpdate }) => {
         };
 
         try {
-            const response = await fetch(`http://192.168.0.15:3000/paciente/${paciente.id}`, {
+            const response = await fetch(`http://localhost:3000/paciente/${paciente.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),

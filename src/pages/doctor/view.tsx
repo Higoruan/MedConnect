@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, FlatList } from 'react-native';
-import EditDoc from '../doctor/edit';
+import EditDoc from './edit';
 import {
     Container,
     DoctorCard,
