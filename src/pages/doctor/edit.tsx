@@ -4,7 +4,7 @@ import * as S from './editStyle';
 
 interface Doctor {
     id: number;
-    nomeCompleto: string;
+    nome: string;
     crm: string;
     especialidade: string;
 }
@@ -16,7 +16,7 @@ interface EditDocProps {
 
 const EditDoc: React.FC<EditDocProps> = ({ doctor, onUpdate }) => {
     const navigation = useNavigation(); // Hook para navegação
-    const [nomeCompleto, setNome] = useState(doctor.nomeCompleto);
+    const [nome, setNome] = useState(doctor.nome);
     const [crm, setCrm] = useState(doctor.crm);
     const [especialidade, setEspecialidade] = useState(doctor.especialidade);
 
@@ -28,13 +28,13 @@ const EditDoc: React.FC<EditDocProps> = ({ doctor, onUpdate }) => {
 
     const handleSaveChanges = async () => {
         const formData = {
-            nomeCompleto,
+            nome,
             crm,
             especialidade,
         };
 
         try {
-            const response = await fetch(`http://localhost:3000/doctor/${doctor.id}`, {
+            const response = await fetch(`http://192.168.0.15:3000/doctor/${doctor.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
@@ -56,7 +56,7 @@ const EditDoc: React.FC<EditDocProps> = ({ doctor, onUpdate }) => {
             <S.Form>
                 <S.Field>
                     <S.InputLabel>Nome</S.InputLabel>
-                    <S.Input value={nomeCompleto} onChangeText={setNome} />
+                    <S.Input value={nome} onChangeText={setNome} />
                 </S.Field>
                 <S.Field>
                     <S.InputLabel>CRM</S.InputLabel>

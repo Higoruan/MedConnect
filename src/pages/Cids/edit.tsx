@@ -29,7 +29,7 @@ const EditCid: React.FC<EditCidProps> = ({ cid, onUpdate }) => {
         };
 
         try {
-            const response = await fetch(`http://localhost:3000/cids/${cid.id}`, {
+            const response = await fetch(`http://192.168.0.15:3000/cids/${cid.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),

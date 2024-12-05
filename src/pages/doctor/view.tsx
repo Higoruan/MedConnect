@@ -14,15 +14,13 @@ import {
 
 interface Doctor {
     id: number;
-    nomeCompleto: string;
-    endereco: string;
-    cnpj: string;
-    telefone: string;
-    email: string;
-    senha: string;
+    nome: string;
+    crm: string;
+    especialidade: string;
+    nomeHospital: string;
 }
 
-const DoctorList: React.FC = () => {
+const DoctorView: React.FC = () => {
     const [doctors, setDoctors] = useState<Doctor[]>([]);
     const [doctorToEdit, setDoctorToEdit] = useState<Doctor | null>(null);
 
@@ -32,13 +30,13 @@ const DoctorList: React.FC = () => {
 
     const fetchDoctors = async () => {
         try {
-            const response = await fetch('http://localhost:3000/doctor');
+            const response = await fetch('http://192.168.0.15:3000/doctor');
             if (!response.ok) {
                 throw new Error('Erro ao carregar os doctors');
             }
 
             const data = await response.json();
-            setDoctors(data.doctor);
+            setDoctors(data.doctors);
         } catch (error) {
             console.error('Erro ao carregar doctors:', error);
             Alert.alert('Erro', 'Não foi possível carregar os doctors');
@@ -47,7 +45,7 @@ const DoctorList: React.FC = () => {
 
     const handleDelete = async (id: number) => {
         try {
-            const response = await fetch(`http://localhost:3000/doctor/${id}`, {
+            const response = await fetch(`http://192.168.0.15:3000/doctor/${id}`, {
                 method: 'DELETE',
             });
 
@@ -82,10 +80,10 @@ const DoctorList: React.FC = () => {
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({ item }) => (
                         <DoctorCard>
-                            <DoctorName>{item.nomeCompleto}</DoctorName>
-                            <DoctorDetails>{item.endereco}</DoctorDetails>
-                            <DoctorDetails>{item.telefone}</DoctorDetails>
-                            <DoctorDetails>{item.email}</DoctorDetails>
+                            <DoctorName>{item.nome}</DoctorName>
+                            <DoctorDetails>{item.crm}</DoctorDetails>
+                            <DoctorDetails>{item.especialidade}</DoctorDetails>
+                            <DoctorDetails>{item.nomeHospital}</DoctorDetails>
 
                             <Actions>
                                 <ButtonEdit onPress={() => handleEdit(item)}>
@@ -104,4 +102,4 @@ const DoctorList: React.FC = () => {
     );
 };
 
-export default DoctorList;
+export default DoctorView;

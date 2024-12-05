@@ -31,7 +31,7 @@ const PacienteList: React.FC = () => {
 
     const fetchPacientes = async () => {
         try {
-            const response = await fetch('http://localhost:3000/paciente');
+            const response = await fetch('http://192.168.0.15:3000/paciente');
             if (!response.ok) {
                 throw new Error('Erro ao carregar os pacientes');
             }
@@ -46,7 +46,7 @@ const PacienteList: React.FC = () => {
 
     const handleDelete = async (id: number) => {
         try {
-            const response = await fetch(`http://localhost:3000/paciente/${id}`, {
+            const response = await fetch(`http://192.168.0.15:3000/paciente/${id}`, {
                 method: 'DELETE',
             });
 

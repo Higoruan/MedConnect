@@ -5,8 +5,8 @@ import HomeScreen from '../../pages/home/app';
 import Patient from '../../pages/Patient/app';
 import HospAdd from '../../pages/Hospital/add';
 import HospView from '../../pages/Hospital/view';
-// import DoctorAdd from '../../pages/Doctor/add';
-// import DoctorView from '../../pages/Doctor/view';
+import DoctorAdd from '../../pages/doctor/add';
+import DoctorView from '../../pages/doctor/view';
 import CidsAdd from '../../pages/Cids/add';
 import ConsultaAdd from '../../pages/Consultar/add';
 import AtestadoAdd from '../../pages/Atestado/add';
@@ -26,17 +26,17 @@ const BottomMenu = () => {
                 }}
             >
                 <Tab.Screen name="HOME" component={HomeScreen} />
-                <Tab.Screen name="HOSPITAL ADD" component={HospAdd} />
-                <Tab.Screen name="HOSPITAL VIEW" component={HospView} />
-                <Tab.Screen name="PACIENTE" component={Patient} />
-                {/* <Tab.Screen name="👨🏻‍⚕️➕" component={DoctorAdd} /> */}
-                {/* <Tab.Screen name="👨🏻‍⚕️📄" component={DoctorView} /> */}
-                <Tab.Screen name="CIDS ADD" component={CidsAdd} />
-                <Tab.Screen name="CIDS VIEW" component={CidsView} />
-                <Tab.Screen name="CONSULTA ADD" component={ConsultaAdd} />
-                <Tab.Screen name="CONSULTA VIEW" component={ConsultarView} />
-                <Tab.Screen name="ATESTADO ADD" component={AtestadoAdd} />
-                <Tab.Screen name="ATESTADO VIEW" component={AtestadoView} />
+                <Tab.Screen name="Hospitais" component={HospView} />
+                <Tab.Screen name="Add Hosp." component={HospAdd} />
+                <Tab.Screen name="Pacientes" component={Patient} />
+                <Tab.Screen name="Medicos" component={DoctorView} />
+                <Tab.Screen name="Add Med." component={DoctorAdd} />
+                <Tab.Screen name="Cids" component={CidsView} />
+                <Tab.Screen name="Add. Cid" component={CidsAdd} />
+                <Tab.Screen name="Culsultas" component={ConsultarView} />
+                <Tab.Screen name="Add Consulta" component={ConsultaAdd} />
+                <Tab.Screen name="Atestados" component={AtestadoView} />
+                <Tab.Screen name="Add. Atestado" component={AtestadoAdd} />
                 <Tab.Screen name="📊" component={Dashboard} />
 
             </Tab.Navigator>

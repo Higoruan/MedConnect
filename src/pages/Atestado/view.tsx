@@ -31,7 +31,7 @@ const AtestadoList: React.FC = () => {
 
     const fetchAtestados = async () => {
         try {
-            const response = await fetch('http://localhost:3000/atestado');
+            const response = await fetch('http://192.168.0.15:3000/atestado');
             if (!response.ok) {
                 throw new Error('Erro ao carregar os atestados');
             }
@@ -46,7 +46,7 @@ const AtestadoList: React.FC = () => {
 
     const handleDelete = async (id: number) => {
         try {
-            const response = await fetch(`http://localhost:3000/atestado/${id}`, {
+            const response = await fetch(`http://192.168.0.15:3000/atestado/${id}`, {
                 method: 'DELETE',
             });
 

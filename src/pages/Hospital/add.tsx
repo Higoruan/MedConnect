@@ -40,7 +40,7 @@ const HospitalAdd: React.FC = () => {
 
     const handleSubmit = async () => {
         try {
-            const response = await fetch('http://localhost:3000/hospital', {
+            const response = await fetch('http://192.168.0.15:3000/hospital', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),

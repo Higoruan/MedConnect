@@ -49,7 +49,7 @@ const ConsultarConsulta: React.FC = () => {
 
     const fetchConsultas = async () => {
         try {
-            const response = await fetch('http://localhost:3000/consulta');
+            const response = await fetch('http://192.168.0.15:3000/consulta');
             if (!response.ok) {
                 throw new Error('Erro ao carregar as consultas');
             }
@@ -65,7 +65,7 @@ const ConsultarConsulta: React.FC = () => {
 
     const handleDelete = async (id: number) => {
         try {
-            const response = await fetch(`http://localhost:3000/consulta/${id}`, {
+            const response = await fetch(`http://192.168.0.15:3000/consulta/${id}`, {
                 method: 'DELETE',
             });
 
