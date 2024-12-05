@@ -2,7 +2,8 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from '../../pages/home/app';
-import Patient from '../../pages/Patient/add';
+import PatientView from '../../pages/Patient/view';
+import PatientAdd from '../../pages/Patient/add';
 import HospAdd from '../../pages/Hospital/add';
 import HospView from '../../pages/Hospital/view';
 import DoctorAdd from '../../pages/Doctor/add';
@@ -28,7 +29,8 @@ const BottomMenu = () => {
                 <Tab.Screen name="HOME" component={HomeScreen} />
                 <Tab.Screen name="Hospitais" component={HospView} />
                 <Tab.Screen name="Add Hosp." component={HospAdd} />
-                <Tab.Screen name="Pacientes" component={Patient} />
+                <Tab.Screen name="Pacientes" component={PatientView} />
+                <Tab.Screen name="Add Pac." component={PatientAdd} />
                 <Tab.Screen name="Medicos" component={DoctorView} />
                 <Tab.Screen name="Add Med." component={DoctorAdd} />
                 <Tab.Screen name="Cids" component={CidsView} />

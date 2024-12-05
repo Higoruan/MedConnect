@@ -29,7 +29,7 @@ const MedicoAdd: React.FC = () => {
   useEffect(() => {
       const fetchOptions = async () => {
           try {
-              const hospitaisResponse = await fetch('http://192.168.0.15:3000/hospital');
+              const hospitaisResponse = await fetch('http://localhost:3000/hospital');
 
               if (!hospitaisResponse.ok) {
                   throw new Error('Erro ao carregar opções');
@@ -71,7 +71,7 @@ const MedicoAdd: React.FC = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch('http://192.168.0.15:3000/doctor', {
+      const response = await fetch('http://localhost:3000/doctor', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

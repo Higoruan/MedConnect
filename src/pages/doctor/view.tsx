@@ -30,7 +30,7 @@ const DoctorView: React.FC = () => {
 
     const fetchDoctors = async () => {
         try {
-            const response = await fetch('http://192.168.0.15:3000/doctor');
+            const response = await fetch('http://localhost:3000/doctor');
             if (!response.ok) {
                 throw new Error('Erro ao carregar os doctors');
             }
@@ -45,7 +45,7 @@ const DoctorView: React.FC = () => {
 
     const handleDelete = async (id: number) => {
         try {
-            const response = await fetch(`http://192.168.0.15:3000/doctor/${id}`, {
+            const response = await fetch(`http://localhost:3000/doctor/${id}`, {
                 method: 'DELETE',
             });
 

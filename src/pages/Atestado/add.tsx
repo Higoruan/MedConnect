@@ -41,9 +41,9 @@ const AtestadoAdd: React.FC = () => {
     useEffect(() => {
         const fetchOptions = async () => {
             try {
-                const medicosResponse = await fetch('http://192.168.0.15:3000/doctor');
-                const pacientesResponse = await fetch('http://192.168.0.15:3000/paciente');
-                const cidsResponse = await fetch('http://192.168.0.15:3000/cids');
+                const medicosResponse = await fetch('http://localhost:3000/doctor');
+                const pacientesResponse = await fetch('http://localhost:3000/paciente');
+                const cidsResponse = await fetch('http://localhost:3000/cids');
 
                 if (!medicosResponse.ok || !pacientesResponse.ok || !cidsResponse.ok) {
                     throw new Error('Erro ao carregar opções');
@@ -105,7 +105,7 @@ const AtestadoAdd: React.FC = () => {
                 return;
             }
 
-            const response = await fetch('http://192.168.0.15:3000/atestado', {
+            const response = await fetch('http://localhost:3000/atestado', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),

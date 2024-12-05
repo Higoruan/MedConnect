@@ -28,7 +28,7 @@ const CidList: React.FC = () => {
 
     const fetchCids = async () => {
         try {
-            const response = await fetch('http://192.168.0.15:3000/cids');
+            const response = await fetch('http://localhost:3000/cids');
             if (!response.ok) {
                 throw new Error('Erro ao carregar os CIDs');
             }
@@ -43,7 +43,7 @@ const CidList: React.FC = () => {
 
     const handleDelete = async (id: number) => {
         try {
-            const response = await fetch(`http://192.168.0.15:3000/cids/${id}`, {
+            const response = await fetch(`http://localhost:3000/cids/${id}`, {
                 method: 'DELETE',
             });
 
