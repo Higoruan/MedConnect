@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from '../../pages/home/app';
-import Patient from '../../pages/Patient/app';
+import Patient from '../../pages/Patient/add';
 import HospAdd from '../../pages/Hospital/add';
 import HospView from '../../pages/Hospital/view';
 import DoctorAdd from '../../pages/doctor/add';
