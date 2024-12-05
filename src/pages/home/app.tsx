@@ -38,7 +38,7 @@ const HomeScreen = () => {
                     source={{ uri: 'https://img.icons8.com/?size=100&id=6az9wbEz5UKE&format=png&color=000000' }}
                     style={styles.image}
                 />
-                <Text style={styles.sectionTitle}>Encontre Especialistas</Text>
+                <Text style={styles.sectionTitle}>Cadastre Especialistas</Text>
                 <Text style={styles.sectionText}>
                     Agende com médicos e profissionais de saúde confiáveis.
                 </Text>
