@@ -6,8 +6,8 @@ import PatientView from '../../pages/Patient/view';
 import PatientAdd from '../../pages/Patient/add';
 import HospAdd from '../../pages/Hospital/add';
 import HospView from '../../pages/Hospital/view';
-import DoctorAdd from '../../pages/Doctor/add';
-import DoctorView from '../../pages/Doctor/view';
+import DoctorAdd from '../../pages/doctor/add';
+import DoctorView from '../../pages/doctor/view';
 import CidsAdd from '../../pages/Cids/add';
 import ConsultaAdd from '../../pages/Consultar/add';
 import AtestadoAdd from '../../pages/Atestado/add';
@@ -35,7 +35,7 @@ const BottomMenu = () => {
                 <Tab.Screen name="Add Med." component={DoctorAdd} />
                 <Tab.Screen name="Cids" component={CidsView} />
                 <Tab.Screen name="Add. Cid" component={CidsAdd} />
-                <Tab.Screen name="Culsultas" component={ConsultarView} />
+                <Tab.Screen name="Consultas" component={ConsultarView} />
                 <Tab.Screen name="Add Consulta" component={ConsultaAdd} />
                 <Tab.Screen name="Atestados" component={AtestadoView} />
                 <Tab.Screen name="Add. Atestado" component={AtestadoAdd} />
